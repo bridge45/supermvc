@@ -11,21 +11,23 @@
  */
 function C($name = null)
 {
+    //echo $name."\n";
     static $config = array();
     $config || $config = _get_config();
     // 无参数时获取所有
     if (empty($name)) {
         return $config;
     }
+    $config_var = $config;//避免修改出错
     $names = explode('.', $name);
     foreach ($names as $name) {
-        if (isset($config[$name])) {
-            $config = $config[$name];
+        if (isset($config_var[$name])) {
+            $config_var = $config_var[$name];
         } else {
             return null;
         }
     }
-    return $config;
+    return $config_var;
 }
 
 /*
@@ -91,34 +93,7 @@ function showError($msg){
 }
 
 
-//白名单过滤模式开始
-function AlFilter($str=NULL,$operate,$ext=NULL){
-    $str = trim(str_replace(PHP_EOL, '', $str));//去换行机制
-    if(!$str) return 0;
-    //匹配模式 $pattern
-    $Ap="\x{4e00}-\x{9fff}".'0-9a-zA-Z\@\#\$\%\^\&\*\(\)\!\,\.\?\-\+\=';//全部字符串
-    $Cp="\x{4e00}-\x{9fff}";//汉字
-    $Dp='0-9';//数字
-    $Wp='a-zA-Z';//字母
-    $Tp='@#$%^&*()-+=?';//特殊符号
-    $_p='_';//下划线
 
-    $pattern="/^[";
-    $OArr=str_split(strtolower($operate));//拆分操作符
-    if (in_array('a', $OArr)) $pattern.=$Ap;
-    if (in_array('c', $OArr)) $pattern.=$Cp;
-    if (in_array('d', $OArr)) $pattern.=$Dp;
-    if (in_array('w', $OArr)) $pattern.=$Wp;
-    if (in_array('t', $OArr)) $pattern.=$Tp;
-    if (in_array('_', $OArr)) $pattern.=$_p;
-    if($ext) $pattern.=$ext;
-    $pattern.="]+$/u";
-    if(!preg_match($pattern,$str)){
-        return 0;
-    }else{
-        return $str;
-    }
-}
 
 /*
  * 调试模式错误判断
