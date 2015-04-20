@@ -1,0 +1,12 @@
+开始设想的是增加一个Private层
+考虑到编辑的时候还要分目录,比较麻烦,就直接在原来的
+StudyController.class.php加上一个私有父类
+StudyController_.class.php
+这样的设计,然后
+StudyController.class.php只做简单的逻辑处理
+    复杂的逻辑全部交给StudyController_.class.php
+底层公共数据库逻辑交给
+    Model层
+ 
+model层可以自动生成数据库对应的增删改查
+
