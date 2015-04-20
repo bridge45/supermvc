@@ -26,3 +26,12 @@ function _config_merge($syscon,$usercon){
     }
     return $config;
 }
+
+
+/*
+ * 返回错误报告
+ */
+
+function _show_error($str){
+    echo $str;
+}
