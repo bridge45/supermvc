@@ -52,15 +52,15 @@ return array(
     'db_driver_path' => '', // 自定义数据库驱动文件地址
     'db_spdb_full_tblname' => TRUE, // spDB是否使用表全名
 
-    'view' => array( // 视图配置
-        'enabled' => TRUE, // 开启视图
+    'view' => array(
         'config' =>array(
-            'template_dir' => APP_PATH.'/tpl', // 模板目录
-            'compile_dir' => APP_PATH.'/tmp', // 编译目录
-            'cache_dir' => APP_PATH.'/tmp', // 缓存目录
-            'left_delimiter' => '{',  // smarty左限定符
-            'right_delimiter' => '}', // smarty右限定符
-            'auto_literal' => TRUE, // Smarty3新特性
+            'template_dir' => APP_PATH.'/template', // 模板目录
+            'tmpc_dir' => APP_PATH.'/cachedata/tmpc', // 编译目录
+            'cache_dir' => APP_PATH.'/cachedata/cache', // 缓存目录
+            'left_delimiter' => '<{',  // smarty左限定符
+            'right_delimiter' => '}>', // smarty右限定符
+            'force_compile' => true, // smarty右限定符
+            'cache_lifetime' => true, // smarty右限定符
         ),
         'debugging' => FALSE, // 是否开启视图调试功能，在部署模式下无法开启视图调试功能
         'engine_name' => 'Smarty', // 模板引擎的类名称，默认为Smarty
