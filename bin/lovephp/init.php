@@ -30,7 +30,7 @@ function daung(){
 function _make_controller_obj(){
     $controller_name = UC;
     if(!_chkname(UC)) _show_error('控制器类名['.$controller_name.']格式不符合要求!');
-    include APP_PATH.'/controller/'.$controller_name.'Controller.class.php';
+    include APP_PATH.'/controller/'.$controller_name.'Controller.php';
     return new $controller_name();
 }
 
