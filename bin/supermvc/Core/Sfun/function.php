@@ -4,8 +4,8 @@
  * 获取配置文件的值
  */
 function _get_config(){
-    $sys_config  = include LP_PATH."/sconfig.php";
-    $user_config = include APP_PATH."/bin/conf/config.php";
+    $sys_config  = include LP_MAIN."/sconfig.php";
+    $user_config = include LP_CON."/config.php";
     // 载入配置文件
     return  _config_merge($sys_config,$user_config);
 }
