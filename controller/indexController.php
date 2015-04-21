@@ -5,7 +5,9 @@ class index extends controller{
 
 
     public function start(){
-        $this->assign('name','452353425345');
+        $data = $this->db->table('user')->select();
+        echo json_encode($data);die;
+        $this->assign('name','SDCSCAS');
         $this->display(APP_PATH.'/template/home/index.tpl');
     }
 
