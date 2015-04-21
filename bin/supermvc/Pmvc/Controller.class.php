@@ -10,15 +10,22 @@ class Controller
      */
     protected $view_instance;
 
+    /*
+     * model对象
+     */
+    protected $db;
+
     public function __construct()
     {
         $this->_create_view_instance();
+        $this->_create_db_instance();
     }
 
     public function __call($method, $args)
     {
         echo $method . '不存在' . $args;
     }
+
 
     private function _create_view_instance()
     {
@@ -31,6 +38,11 @@ class Controller
         $this->view_instance->right_delimiter = C('view.config.right_delimiter');
         $this->view_instance->force_compile = C('view.config.force_compile');;
     }
+
+    private function _create_db_instance(){
+        $this->db = new Model();
+    }
+
 
     /**
      * displays a Smarty template
@@ -60,6 +72,9 @@ class Controller
         return $this;
     }
 
+    public function __destruct(){
+        //TODO 释放mysql资源
+    }
 
 }
 
