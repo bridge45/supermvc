@@ -13,7 +13,7 @@ interface DB{
      * 执行sqlyuju,返回数组
      * getArray
      */
-    public function getDbData($sql);
+    public function getDbData($sql,$bindPargm = array());
 
     /**
      * 获取当前表主键
