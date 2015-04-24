@@ -33,56 +33,82 @@ class Model{
      */
     public $order;
 
+    protected $bindValue = array();
+
     public function __construct(){
-        require LP_MC_DB.'/Driver/BaseDb.class.php';
-        require LP_MC_DB.'/Driver/Mysql.class.php';
-        $this->_db = new Mysql(C('db'));
+        require LP_MC_DB.'/Driver/SPDO.class.php';
+        $this->_db = new SPDO(C('db'));
     }
 
-    //////////////////////////////CURD部分/////////////////////////////////////////
+    //////////////////////////////CURD PART/////////////////////////////////////////
     /*
-     * 查询一条记录出来
+     * Query a record
      */
     public function find(){
-        $this->limit(1);
-        $data = $this->select();
+        $data = $this->limit(1)->select();
         return isset($data[0]) ? $data[0] : false;
     }
 
     /*
-     * 查询多条
+     * Query a records
      */
     public function select(){
-        if(!$this->table)
-            _show_error('table must be set!');
-        $sql = 'select '.$this->field.' from '.$this->table;
+        $this->checkTable();
+        $sql = 'SELECT '.$this->field.' FROM '.$this->table;
         if($this->where)
             $sql .= ' '.$this->where;
-        if($this->limit)
-            $sql = $this->_db->formatLimit($sql,$this->limit);
         if($this->order)
             $sql .= ' '.$this->order;
-        return $this->exec($sql);
+        if($this->limit)
+            $sql = $this->_db->formatLimit($sql,$this->limit);
+        return $this->_db->execute($sql,$this->bindValue);
     }
 
+
     /*
-     * 删除一条
+     * Delete a record
      */
     public function delete(){
-
+        $this->checkTable();
+        $sql = 'DELETE  FROM '.$this->table;
+        if($this->where)
+            $sql .= ' '.$this->where;
+        return $this->_db->execute($sql,$this->bindValue,2);
     }
 
     /*
-     * 插入一条
+     * Insert a record
      */
-    public function add(){
-
+    public function add($data){
+        $this->checkTable();
+        if(empty($data))
+            _show_error('必须输入插入的数组');
+        foreach($data as $key=>$val){
+            $fields[] = '`'.$key.'`';
+            $vals[]   = '?';
+            $this->bindValue[]   = $val;
+        }
+        $sql = 'insert into '.$this->table.' ('.implode(',',$fields).') VALUES ('.implode(',', $vals).')';
+        return $this->_db->execute($sql,$this->bindValue,2);
     }
 
     /*
      * 保存修改
      */
-    public function save(){
+    public function save($data,$ext = ''){
+        $this->checkTable();
+        if(!$this->where) _show_error('安全起见,更新操作必须有where条件呀!');
+        $newBindValue = array();
+        if(!$data) _show_error('必须输入修改参数啊!');
+        foreach($data as $key=>$val){
+            $Sets[] = '`'.$key.'` = '.' ? ';
+            $newBindValue[]   = $val;
+        }
+        $this->bindValue = array_merge($newBindValue,$this->bindValue);
+        $sql = 'UPDATE '.$this->table .' SET '.implode(',',$Sets);
+        $sql .= ' '.$this->where;
+        return $this->_db->execute($sql,$this->bindValue,2);
+
 
     }
 
@@ -90,14 +116,30 @@ class Model{
      * 统计数据量
      */
     public function count(){
+        $this->checkTable();
+        $this->field = 'count(*)';
+        $sql = 'select '.$this->field.' from '.$this->table;
+        if($this->where)
+            $sql .= ' '.$this->where;
+        if($this->limit)
+            $sql = $this->_db->formatLimit($sql,$this->limit);
+        $res = $this->_db->execute($sql,$this->bindValue);
+        return isset($res['0']['0']) ? $res['0']['0'] : '';
+    }
 
+    protected function checkTable(){
+        if(!$this->table)
+            _show_error('table must be set!');
     }
 
     /*
      * 自己执行sql
      */
-    public function exec($sql){
-        return $this->_db->getDbData($sql);
+    public function exec($sql,$bindValue = false){
+        if(false === $bindValue)
+            _show_error('bindValue 必须传参数咯[如果没有外部参数],传入array()吧!');
+        $res = $this->_db->execute($sql,$bindValue);
+        return isset($res['0']['0']) ? $res['0']['0'] : '';
     }
 
     //////////////////////////////CURD部分/////////////////////////////////////////
@@ -107,15 +149,21 @@ class Model{
      * 设置操作表
      */
     public function table($table_name){
-        $this->table = $table_name;
+        $this->bindValue = array();
+        $this->table = C('db.prefix').$table_name;
         return $this;
     }
 
     /*
      * 设置where
      */
-    public function where($where){
-        $this->where = $where;
+    public function where($where,$bindValue){
+        if(!strpos($where, '?'))
+                    _show_error('where必须用占位符模式');
+        if(substr_count($where, '?') != count($bindValue))
+            _show_error('传参个数和占位符个数不等');
+        $this->bindValue = array_merge($this->bindValue,$bindValue);
+        $this->where = ' where '.$where;
         return $this;
     }
 
@@ -140,7 +188,6 @@ class Model{
 
     /////////////////////////////////对象配置部分/////////////////////////////////////////////
 
-
     /*
      * 获取刚刚执行的sql语句
      */
@@ -153,6 +200,13 @@ class Model{
      */
     public function getAllSql(){
 
+    }
+
+    /*
+     * 释放数据库连接
+     */
+    public function free(){
+        $this->_db->free();
     }
 
 
