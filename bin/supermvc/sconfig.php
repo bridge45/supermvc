@@ -41,14 +41,28 @@ return array(
 //    ),
 //
     'db' => array(  // 数据库连接配置
-        'driver' => 'mysql',   // 驱动类型
-        'host' => '127.0.0.1', // 数据库地址
+        //'driver' => 'Mysql',   // 驱动类型
+        'driver' => 'mysql',   // PDO驱动类型
+        'host' => '10.209.79.4', // 数据库地址
         'port' => 3306,        // 端口
         'user' => 'root',     // 用户名
         'pwd' => 'qwe123',      // 密码
-        'database' => 'supermvc',      // 库名称
+        'database' => 'test',      // 库名称
         'prefix' => '',           // 表前缀
     ),
+//
+//    'db' => array(  // 数据库连接配置
+//        //'driver' => 'Mysql',   // 驱动类型
+//        'driver' => 'SPDO',   // PDO驱动类型
+//        'host' => '127.0.0.1', // 数据库地址
+//        'port' => 3306,        // 端口
+//        'user' => 'root',     // 用户名
+//        'pwd' => 'qwe123',      // 密码
+//        'database' => 'supermvc',      // 库名称
+//        'prefix' => '',           // 表前缀
+//    ),
+
+
 //    'db_driver_path' => '', // 自定义数据库驱动文件地址
 //    'db_spdb_full_tblname' => TRUE, // spDB是否使用表全名
 //
