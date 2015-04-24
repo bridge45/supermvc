@@ -34,4 +34,5 @@ function _config_merge($syscon,$usercon){
 
 function _show_error($str){
     echo $str;
+    die;
 }
