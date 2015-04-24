@@ -72,8 +72,22 @@ class Controller
         return $this;
     }
 
+    protected function table($table_name){
+        $this->db->table($table_name);
+        return $this->db;
+    }
+
+    protected function add($data){
+        $this->db->add($data);
+    }
+
+    protected function exec($sql,$type,$bindValue = false){
+        return $this->db->exec($sql,$type,$bindValue);
+    }
+
     public function __destruct(){
         //TODO 释放mysql资源
+        $this->db->free();
     }
 
 }
