@@ -72,15 +72,28 @@ class Controller
         return $this;
     }
 
+    /*
+     * 分配表
+     */
     protected function table($table_name){
         $this->db->table($table_name);
         return $this->db;
     }
 
-    protected function add($data){
-        $this->db->add($data);
+    /*
+     * 开启事务
+     */
+    protected function  startTrance($lock_table_excute_code){
+        $this->db->startTrance($lock_table_excute_code);
     }
 
+    public function commit(){
+        return $this->db->commit();
+    }
+
+    public function rollBack(){
+        return $this->db->rollBack();
+    }
     protected function exec($sql,$type,$bindValue = false){
         return $this->db->exec($sql,$type,$bindValue);
     }
