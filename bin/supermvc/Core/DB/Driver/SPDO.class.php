@@ -10,11 +10,6 @@ class SPDO
      * 数据库链接句柄
      */
     public $conn;
-    /**
-     * 执行的SQL语句记录
-     */
-    public $arrSql;
-
 
     /**
      * 构造函数
@@ -43,19 +38,50 @@ class SPDO
      */
     public function execute($sql,$bindValue,$mode = 1)
     {
-        $st = $this->conn->prepare($sql);
-        if(!empty($bindValue)){
-            foreach($bindValue as $key=>$val){
-                $st->bindValue($key+1,$val);
+            $st = $this->conn->prepare($sql);
+            if (!empty($bindValue)) {
+                foreach ($bindValue as $key => $val) {
+                    $st->bindValue($key + 1, $val);
+                }
             }
-        }
-        $st->execute();
-        if($mode == 1)
-            $res = $st->fetchAll();
-        elseif($mode == 2)
-            $res = $st->rowCount();
-        return $res;
+            echo 'RES = ' . $st->execute();
+            return $mode == 1 ? $st->fetchAll() : $st->rowCount();
     }
+
+    /*
+     * 开始事务
+     */
+    public function beginTrance(){
+        /* 开始一个事务，关闭自动提交 */
+        $this->conn->beginTransaction();
+    }
+
+    public function lock($lock_table_excute_code){
+        $this->conn->exec('lock tables '.$lock_table_excute_code);
+    }
+
+    public function commit(){
+        $this->conn->commit();
+    }
+
+    public function rollBack(){
+        $this->conn->rollBack();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /*
      * 记录sql语句
@@ -75,7 +101,7 @@ class SPDO
 
     public function free()
     {
-        mysql_close($this->conn);
+        //mysql_close($this->conn);
     }
 }
 
