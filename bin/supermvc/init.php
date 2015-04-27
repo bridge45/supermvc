@@ -14,6 +14,7 @@ define('LP_BIN',APP_PATH.'/bin');
             define('LP_MC_DB',LP_M_CORE.'/DB');
             define('LP_MC_SFUN',LP_M_CORE.'/Sfun');
             define('LP_MC_TPL',LP_M_CORE.'/TPL');
+            define('LP_MC_Err',LP_M_CORE.'/Error');
         define('LP_M_PMVC',LP_MAIN.'/Pmvc');
 
 //加载系统配置
@@ -29,6 +30,9 @@ require LP_M_PMVC.'/Controller.class.php';//控制器层
 
 //视图框架
 require LP_MC_TPL.'/Smarty/libs/Smarty.class.php';//控制器层
+
+//缓存
+require LP_MC_CACHE.'/Cache.class.php';
 
 define('UC',Q('get.'.C('controller_tag'),C('default_controller')));//控制器
 define('UA', Q('get.'.C('action_tag'),C('default_action')));//动作
