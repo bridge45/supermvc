@@ -7,6 +7,18 @@ return array(
     'default_controller' => 'index', // 默认的控制器名称
     'default_action' => 'index',  // 默认的动作名称
 
+    'session' => array(
+        'prefix' => 'supermvc',//session 前缀
+        'expire' => '3600',//
+        'path' => '/',// Cookie路径
+        'domain' => '', // Cookie有效域名
+        'httponly' => '',// Cookie httponly设置
+    ),
+    'cookie' => array(
+        'prefix' => 'supermvc',//前缀
+    ),
+
+
 //
 //
 //
@@ -41,7 +53,6 @@ return array(
 //    ),
 //
     'db' => array(  // 数据库连接配置
-        //'driver' => 'Mysql',   // 驱动类型
         'driver' => 'mysql',   // PDO驱动类型
         'host' => '10.209.79.4', // 数据库地址
         'port' => 3306,        // 端口
@@ -50,6 +61,20 @@ return array(
         'database' => 'test',      // 库名称
         'prefix' => '',           // 表前缀
     ),
+    'cache' => array(  //缓存配置
+        'driver' => 'mem', //驱动类型
+        'host' => '127.0.0.1', //地址
+        'port' => 11211,      //端口
+        'expire' => 3600,      //端口
+        'hash' => true,   //主动hash
+        'prefix' => 'supermvc',   //缓存md5_前缀
+    ),
+    'error' =>array(
+        'show_error_line_before' => 3,//显示错误代码前几行
+        'show_error_line_after' => 3,//显示错误代码后几行
+    ),
+
+
 //
 //    'db' => array(  // 数据库连接配置
 //        //'driver' => 'Mysql',   // 驱动类型
