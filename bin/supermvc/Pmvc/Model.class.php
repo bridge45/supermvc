@@ -189,40 +189,12 @@ class Model{
     }
 
     /*
-     * 内部sql执行
-     */
-    private function _exec($sql){
-        return $this->exec($sql,array());
-    }
-    /*
      * 开启事务
      * $lock_table_excute_code t_user write,t_orders read
      */
     public function beginTrance(){
         $this->_db->beginTrance();
-    }
-
-    /*
-     * 锁表
-     */
-    public function lock($lock_table_excute_code){
-        $this->_db->lock($lock_table_excute_code);
-    }
-
-    //Todo 运用延时绑定将Model 和controller 连接起来
-
-    /*
-     * 事务提交
-     */
-    public function commit(){
-        $this->_db->commit();
-    }
-
-    /*
-     * 事务撤销
-     */
-    public function  rollBack(){
-        $this->_db->rollBack();
+        return $this->_db;
     }
 
     /////////////////////////////////对象配置部分/////////////////////////////////////////////
