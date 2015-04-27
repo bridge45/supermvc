@@ -2,24 +2,38 @@
 
 class index extends controller{
 
+    public function __construct(){
+        parent::__construct();
+    }
 
 
     public function start(){
-//        $data = $this->table('user')->add(array('name'=>'爱乐A','content'=>'爱乐信息'));
-//         $this->startTrance('user write');
-//        $data = $this->table('user')->add(array('name'=>'爱乐B','content'=>'爱乐信息'));
-//        $this->commit();
+        cookie(null);
+        echo '<pre>';
+        print_r($_COOKIE);
+    }
+
+    public function index(){
+        echo  cookie();
+
+    }
 
 
-        $be = $this->beginTrance();
-        $be->lock('`user` write');
-        $data = $this->table('user')->add(array('name'=>'爱乐C','content'=>'爱乐信息'));
-        $this->rollBack();
 
-        $data = $this->table('user')->add(array('name'=>'爱乐D','content'=>'爱乐信息'));
-
-
-        echo json_encode($data);
+    public function start0(){
+        //        $data = $this->table('user')->add(array('name'=>'爱乐A','content'=>'爱乐信息'));
+        //         $this->startTrance('user write');
+        //        $data = $this->table('user')->add(array('name'=>'爱乐B','content'=>'爱乐信息'));
+        //        $this->commit();
+//        $be = $this->beginTrance();
+//        $be->lock('`user` write');
+//        $data = $this->table('user')->add(array('name'=>'爱乐C','content'=>'爱乐信息'));
+//        $this->rollBack();
+//
+//        $data = $this->table('user')->add(array('name'=>'爱乐D','content'=>'爱乐信息'));
+//
+//
+//        echo json_encode($data);
 //        $data = $this->table('user')->add(array('name'=>'爱乐q','content'=>'爱乐信息q'));
 //        echo json_encode($data);
 //        $data = $this->table('user')->
