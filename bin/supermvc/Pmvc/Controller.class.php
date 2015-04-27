@@ -13,8 +13,11 @@ class Controller
     /*
      * model对象
      */
-    protected $db;
+    protected $db = '';
 
+    /*
+     * 构造函数
+     */
     public function __construct()
     {
         $this->_create_view_instance();
@@ -90,7 +93,8 @@ class Controller
 
     public function __destruct(){
         //TODO 释放mysql资源
-        $this->db->free();
+        if($this->db)
+            $this->db->free();
     }
 
 }
