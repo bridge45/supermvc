@@ -83,20 +83,10 @@ class Controller
     /*
      * 开启事务
      */
-    protected function  startTrance($lock_table_excute_code){
-        $this->db->startTrance($lock_table_excute_code);
+    protected function  beginTrance(){
+        $this->db->beginTrance();
     }
 
-    public function commit(){
-        return $this->db->commit();
-    }
-
-    public function rollBack(){
-        return $this->db->rollBack();
-    }
-    protected function exec($sql,$type,$bindValue = false){
-        return $this->db->exec($sql,$type,$bindValue);
-    }
 
     public function __destruct(){
         //TODO 释放mysql资源
