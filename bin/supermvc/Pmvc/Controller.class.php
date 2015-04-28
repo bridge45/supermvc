@@ -26,7 +26,7 @@ class Controller
 
     public function __call($method, $args)
     {
-        echo $method . '不存在' . $args;
+       Error($method . '不存在' . $args);
     }
 
 
