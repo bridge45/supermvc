@@ -193,3 +193,11 @@ function debug_error_check(){
         error_reporting(0);
     }
 }
+
+
+function debug($args,$type = 'log'){
+    if(!APP_DEBUG) return;
+    if(!in_array($type,array('log','group','groupEnd','groupCollapsed','warn','error','info','table')))
+        Error('debug type not defined!');
+    ChromePhp::$type($args);
+}
