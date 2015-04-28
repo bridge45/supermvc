@@ -14,8 +14,17 @@ class index extends controller{
     }
 
     public function index(){
-        echo  cookie();
-
+        $log = $_ENV;
+        $warn = $_SERVER;
+        $error = $_REQUEST;
+//        debug($log,'log');
+//        debug($warn,'warn');
+//        debug($error,'info');
+        $this->beginTrance('user write');
+        $data = $this->table('user')->add(array('name'=>'爱乐A','content'=>'爱乐信息'));
+        $data = $this->table('user')->count();
+        echo '<br>';
+        echo $this->table('user')->getLastSql();
     }
 
 
