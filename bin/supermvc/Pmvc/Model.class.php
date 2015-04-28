@@ -203,7 +203,7 @@ class Model{
      * 获取刚刚执行的sql语句
      */
     public function getLastSql(){
-
+        return $this->_db->getLastSql();
     }
 
     /*
