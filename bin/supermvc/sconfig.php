@@ -17,6 +17,9 @@ return array(
     'cookie' => array(
         'prefix' => 'supermvc',//前缀
     ),
+    'debug' => array(
+        'allow_ip' => '*'//允许调试IP,逗号隔开,支持 *表示所有
+    ),
 
 
 //
