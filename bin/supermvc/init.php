@@ -12,6 +12,7 @@ define('LP_BIN',APP_PATH.'/bin');
         define('LP_M_CORE',LP_MAIN.'/Core');
             define('LP_MC_CACHE',LP_M_CORE.'/Cache');
             define('LP_MC_DB',LP_M_CORE.'/DB');
+            define('LP_MC_Debug',LP_M_CORE.'/Debug');
             define('LP_MC_SFUN',LP_M_CORE.'/Sfun');
             define('LP_MC_TPL',LP_M_CORE.'/TPL');
             define('LP_MC_Err',LP_M_CORE.'/Error');
@@ -33,6 +34,10 @@ require LP_MC_TPL.'/Smarty/libs/Smarty.class.php';//控制器层
 
 //缓存
 require LP_MC_CACHE.'/Cache.class.php';
+
+//调试
+if(APP_DEBUG)
+    require LP_MC_Debug.'/ChromePhp.class.php';
 
 define('UC',Q('get.'.C('controller_tag'),C('default_controller')));//控制器
 define('UA', Q('get.'.C('action_tag'),C('default_action')));//动作
