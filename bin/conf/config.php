@@ -1,7 +1,13 @@
 <?php
 //用户配置文件
 return array(
-    'mode' => 'debug1', // 应用程序模式，默认为调试模式
-    'auto_load_controller' => array('spArgs1'), // 控制器自动加载的扩展类名
-    'auto_load_model' => array('spPager1','spVerifier1','spCache1','spLinker1'), // 模型自动加载的扩展类名
+    'db' => array(  // 数据库连接配置
+        'driver' => 'mysql',   // PDO驱动类型
+        'host' => '127.0.0.1', // 数据库地址
+        'port' => 3306,        // 端口
+        'user' => 'root',     // 用户名
+        'pwd' => 'qwe123',      // 密码
+        'database' => 'test',      // 库名称
+        'prefix' => '',           // 表前缀
+    ),
 );
