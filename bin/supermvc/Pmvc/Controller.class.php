@@ -57,6 +57,12 @@ class Controller
      */
     protected function display($template = null, $cache_id = null, $compile_id = null, $parent = null)
     {
+        if(!$template)
+            $template = LP_V.'/'.C('default_theme').'/'.UC.'/'.UA.C('default_tem_ext');
+        else
+            $template = LP_V.'/'.C('default_theme').'/'.$template.C('default_tem_ext');
+        if(!file_exists($template))
+            Error('模板文件:'.$template.'不存在');
         $this->view_instance->display($template, $cache_id, $compile_id, $parent);
     }
 
