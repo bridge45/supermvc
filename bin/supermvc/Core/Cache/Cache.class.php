@@ -13,10 +13,23 @@ class Cache
 
     public function __construct()
     {
-            $this->options = $c = C('cache');
+        $this->options = $c = C('cache');
+        if(class_exists('Memcache')){
             $this->handler = new Memcache();
             if(!$this->handler->connect($c['host'], $c['port']))
                 Error('memcache 无法连接![可能是服务未启动...]');
+        }elseif(class_exists('Memcached')){
+            $this->handler = new Memcached();
+            $servers = array(
+                array($c['host'], $c['port'])
+            );
+            $this->handler->addServers($servers);
+            if(!$this->handler->set(md5('memcached'),'OK'))
+                Error('memcached 无法连接![可能是服务未启动...]');
+        }else{
+            Error('memcache or memcached 扩展不存在!');
+        }
+
     }
 
     /*
