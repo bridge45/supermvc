@@ -1,2 +1,69 @@
-原来的 love php 微型框架改版!
-因为名称已经被占用,名称太俗气,所以重新做了一个
+模板暂时仅支持smarty,需要指定模板文件
+
+系统配置文件在supermvc文件夹下 sconfig.php
+修改项目目录下的conf下的config.php 会覆盖系统默认配置
+
+controller层
+        V层 支持
+                display方法  显示模板
+                assign 方法  给模板配值
+        M层支持
+                table方法,指定表,返回表对象,支持链式操作
+                beginTrancee方法 开启事务,返回事务数据对象
+                当获取数据库对象时可使用以下方法:
+                        find()
+                        select()
+                        delete()
+                        add()
+                        save()
+                        count()
+                        exec()
+                操作条件配置如下:
+                        where()
+                        field()
+                        limit()
+                        order()
+                        join()
+                
+                事务对象支持:
+                        lock()
+                        commit()
+                        rollBack()
+                        
+
+                调试技术:
+                        getLastSql()
+
+            chrome调试:
+                    debug()//支持 'log','group','groupEnd','groupCollapsed','warn','error','info','table'
+
+            函数:
+                C($name = null)    //获取配置数组(支持.分)   
+                Q($qstr, $default = '', $empty_msg = null, $filter = null, $filter_msg = null)     //获取参数值(支持.分)
+                S($key,$value='',$expire=null)   //memcache缓存操作
+                session($key = '',$val = '')  //session操作
+                cookie($key = '',$val = '')   //cookie操作
+                AlFilter($str = NULL, $operate, $ext = NULL)   //过滤函数
+                
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+        
